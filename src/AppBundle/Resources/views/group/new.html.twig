@@ -1,0 +1,105 @@
+{% extends "::base.html.twig" %}
+
+{% form_theme form 'AppBundle:Form:bootstrap_3_layout.html.twig' %}
+
+{% block title %}{{ '%entity% creation'|trans({'%entity%': 'Group'}, 'admin') }} - {{ parent() }}{% endblock %}
+
+{% block body %}
+    <h1>{{ '%entity% creation'|trans({'%entity%': 'Group'}, 'admin') }}</h1>
+
+    {{ form_start(form, {action: path('admin_groups_create')}) }}
+        {{ form_widget(form) }}
+    <div class="well">
+        {{ form_row(form.roles) }}
+        <a href="#" id="add_category" class="btn btn-default">Ajouter un role</a>
+    </div>
+        <p>
+            <button class="btn btn-primary" type="submit">{{ 'Create'|trans({}, 'admin') }}</button>
+        </p>
+
+    {{ form_end(form) }}
+
+        
+        <div class="btn-group record_actions">
+
+            <a class="btn btn-info" href="{{ path('admin_groups') }}">
+                <i class="fa fa-list"></i> {{ 'Back to the list'|trans({}, 'admin') }}
+            </a>
+
+
+        </div>
+
+
+{% endblock %}
+
+{% block javascripts %}
+{{ parent() }}
+    {# Voici le script en question : #}
+    <script type="text/javascript">
+        $(document).ready(function() {
+            // On récupère la balise <div> en question qui contient l'attribut « data-prototype » qui nous intéresse.
+            var $container = $('div#app_admin_groups_roles');
+
+            // On définit un compteur unique pour nommer les champs qu'on va ajouter dynamiquement
+            var index = $container.find(':input').length;
+
+            // On ajoute un nouveau champ à chaque clic sur le lien d'ajout.
+            $('#add_category').click(function(e) {
+                addCategory($container);
+
+                e.preventDefault(); // évite qu'un # apparaisse dans l'URL
+                return false;
+            });
+
+            // On ajoute un premier champ automatiquement s'il n'en existe pas déjà un (cas d'une nouvelle annonce par exemple).
+            if (index == 0) {
+                addCategory($container);
+            } else {
+                // S'il existe déjà des catégories, on ajoute un lien de suppression pour chacune d'entre elles
+                $container.children('div').each(function() {
+                    addDeleteLink($(this));
+                });
+            }
+
+            // La fonction qui ajoute un formulaire CategoryType
+            function addCategory($container) {
+                // Dans le contenu de l'attribut « data-prototype », on remplace :
+                // - le texte "__name__label__" qu'il contient par le label du champ
+                // - le texte "__name__" qu'il contient par le numéro du champ
+                var template = $container.attr('data-prototype')
+                        .replace(/__name__label__/g, 'Role n°' + (index+1))
+                        .replace(/__name__/g,        index)
+                    ;
+
+                // On crée un objet jquery qui contient ce template
+                var $prototype = $(template);
+
+                // On ajoute au prototype un lien pour pouvoir supprimer la catégorie
+                addDeleteLink($prototype);
+
+                // On ajoute le prototype modifié à la fin de la balise <div>
+                $container.append($prototype);
+
+                // Enfin, on incrémente le compteur pour que le prochain ajout se fasse avec un autre numéro
+                index++;
+            }
+
+            // La fonction qui ajoute un lien de suppression d'une catégorie
+            function addDeleteLink($prototype) {
+                // Création du lien
+                var $deleteLink = $('<a href="#" class="btn btn-danger">Supprimer</a>');
+
+                // Ajout du lien
+                $prototype.append($deleteLink);
+
+                // Ajout du listener sur le clic du lien pour effectivement supprimer la catégorie
+                $deleteLink.click(function(e) {
+                    $prototype.remove();
+
+                    e.preventDefault(); // évite qu'un # apparaisse dans l'URL
+                    return false;
+                });
+            }
+        });
+    </script>
+{% endblock %}
