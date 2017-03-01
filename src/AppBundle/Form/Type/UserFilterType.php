@@ -28,7 +28,7 @@ class UserFilterType extends AbstractType
             ->add('groups', EntityFilterType::class, array(
                     'label' => 'Groupes',
                     'class' => 'AppBundle\Entity\Group',
-                    'expanded' => true,
+                    'expanded' => false,
                     'multiple' => true,
                     'apply_filter' => function (QueryInterface $filterQuery, $field, $values) {
                         $query = $filterQuery->getQueryBuilder();
@@ -38,6 +38,9 @@ class UserFilterType extends AbstractType
                             $query->orWhere($query->expr()->in('m.id', $value->getId()));
                         }
                     },
+                    'attr'=>[
+                        'class'=>'demo2'
+                    ]
                 )
 
             )

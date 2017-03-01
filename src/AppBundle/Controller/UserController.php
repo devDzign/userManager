@@ -83,11 +83,16 @@ class UserController extends Controller
     public function newAction()
     {
         $user = new User();
-        $form = $this->createForm(UserType::class, $user);
+        $form = $this->createForm(UserType::class, $user,array(
+                'passwordRequired' => false,
+                'lockedRequired' => true
+            )
+            );
 
         return array(
             'user' => $user,
             'form'   => $form->createView(),
+
         );
     }
 
