@@ -9,10 +9,10 @@
 
     {{ form_start(form, {action: path('admin_groups_create')}) }}
         {{ form_widget(form) }}
-    <div class="well">
+    <div class="">
         {{ form_row(form.roles) }}
-        <a href="#" id="add_category" class="btn btn-default">Ajouter un role</a>
-    </div>
+        <a href="#" id="add_category" class="btn btn-success">Ajouter un role</a>
+    </div><br>
         <p>
             <button class="btn btn-primary" type="submit">{{ 'Create'|trans({}, 'admin') }}</button>
         </p>
@@ -87,7 +87,7 @@
             // La fonction qui ajoute un lien de suppression d'une catégorie
             function addDeleteLink($prototype) {
                 // Création du lien
-                var $deleteLink = $('<a href="#" class="btn btn-danger">Supprimer</a>');
+                var $deleteLink = $('<br><a href="#" class="btn btn-danger">Supprimer</a>');
 
                 // Ajout du lien
                 $prototype.append($deleteLink);

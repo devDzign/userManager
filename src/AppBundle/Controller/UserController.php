@@ -2,6 +2,7 @@
 
 namespace AppBundle\Controller;
 
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
@@ -12,6 +13,7 @@ use AppBundle\Form\Type\UserType;
 use AppBundle\Form\Type\UserFilterType;
 use Symfony\Component\Form\FormInterface;
 use Doctrine\ORM\QueryBuilder;
+use Symfony\Component\HttpFoundation\Response;
 
 
 /**
@@ -40,8 +42,6 @@ class UserController extends Controller
          */
         $user =  $this->get('security.token_storage')->getToken()->getUser();
 
-//        dump($user->getRoles());
-//        die('tatata');
         $em = $this->getDoctrine()->getManager();
         $form = $this->createForm(UserFilterType::class);
         if (!is_null($response = $this->saveFilter($form, 'user', 'admin_users'))) {
@@ -153,12 +153,18 @@ class UserController extends Controller
         $editForm = $this->createForm(UserType::class, $user, array(
             'action' => $this->generateUrl('admin_users_update', array('id' => $user->getId())),
             'method' => 'PUT',
+            'passwordRequired' => false,
+            'lockedRequired' => true
         ));
+//        $data = $editForm->handleRequest($request);
+
+//        dump( $data->getData());
+//        exit();
         if ($editForm->handleRequest($request)->isValid()) {
             $userManager = $this->get('fos_user.user_manager');
             $userManager->updateUser($user);
 
-            return $this->redirect($this->generateUrl('admin_users_edit', array('id' => $user->getId())));
+            return $this->redirect($this->generateUrl('admin_users_show', array('id' => $user->getId())));
         }
         $deleteForm = $this->createDeleteForm($user->getId(), 'admin_users_delete');
 
@@ -303,6 +309,23 @@ class UserController extends Controller
             ->setMethod('DELETE')
             ->getForm()
         ;
+    }
+
+    /**
+     * Lists all User entities.
+     *
+     * @Route("/select", name="admin_users_select")
+     * @Method("GET")
+     */
+    public function selectAction(Request $request)
+    {
+
+
+        $em = $this->getDoctrine()->getManager();
+
+        $data = $em->getRepository('AppBundle:User')->myFindAll($request->query->get('q'),$request->query->get('page_limit'));
+
+        return new JsonResponse($data);
     }
 
 }

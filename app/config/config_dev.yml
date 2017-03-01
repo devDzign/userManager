@@ -9,7 +9,8 @@ framework:
 
 web_profiler:
     toolbar: true
-    intercept_redirects: false
+#    intercept_redirects: true
+
 
 monolog:
     handlers:
@@ -34,3 +35,7 @@ monolog:
 #    delivery_addresses: ['me@example.com']
 
 bazinga_faker: ~
+
+swiftmailer:
+    disable_delivery:  false
+#     delivery_address: you@youremail.com

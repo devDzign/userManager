@@ -28,6 +28,10 @@
                 <td>{% if user.enabled %}<i class="fa fa-check-square-o"></i>{% else %}<i class="fa fa-square-o"></i>{% endif %}</td>
             </tr>
             <tr>
+                <th scope="row">Locked</th>
+                <td>{% if user.Locked %}<i class="fa fa-check-square-o"></i>{% else %}<i class="fa fa-square-o"></i>{% endif %}</td>
+            </tr>
+            <tr>
                 <th scope="row">Salt</th>
                 <td>{{ user.salt }}</td>
             </tr>

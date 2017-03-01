@@ -34,7 +34,10 @@
         "knplabs/knp-paginator-bundle": "^2.5",
         "lexik/form-filter-bundle": "dev-master",
         "willdurand/faker-bundle": "^1.3",
-        "knplabs/knp-menu-bundle": "^2.0"
+        "knplabs/knp-menu-bundle": "^2.0",
+        "genemu/form-bundle": "^3.0@dev",
+        "tetranz/select2entity-bundle": "^2.8",
+        "misato/bootstrap-duallistbox-bundle": "dev-master"
     },
     "require-dev": {
         "sensio/generator-bundle": "^3.0",

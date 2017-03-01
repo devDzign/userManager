@@ -9,7 +9,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
- * @ORM\Entity
+ *  @ORM\Entity(repositoryClass="AppBundle\Repository\UserRepository")
  * @ORM\Table(name="fos_user")
  * @UniqueEntity(fields="usernameCanonical", errorPath="username", message="fos_user.username.already_used", groups={"Default", "Registration", "Profile"})
  * @UniqueEntity(fields="emailCanonical", errorPath="email", message="fos_user.email.already_used", groups={"Default", "Registration", "Profile"})
@@ -32,6 +32,9 @@ class User extends BaseUser {
      */
     protected $groups;
 
+    /**
+     * @ORM\Column(name="locked", type="boolean")
+     */
     protected $locked;
 
     protected $expired;
@@ -101,6 +104,11 @@ class User extends BaseUser {
 
     function getLocked() {
         return $this->locked;
+    }
+
+    function setLocked($locked) {
+         $this->locked = $locked;
+        return $this;
     }
 
     function getExpired() {

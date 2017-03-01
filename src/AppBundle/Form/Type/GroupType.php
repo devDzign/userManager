@@ -2,12 +2,14 @@
 
 namespace AppBundle\Form\Type;
 
+use Genemu\Bundle\FormBundle\Form\JQuery\Type\Select2Type;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Tetranz\Select2EntityBundle\Form\Type\Select2EntityType;
 
 
 class GroupType extends AbstractType
@@ -28,6 +30,13 @@ class GroupType extends AbstractType
                     'allow_delete' => true,
                 )
             )
+//            ->add('users', Select2EntityType::class, [
+//                'multiple' => true,
+//                'remote_route' => 'admin_users_select',
+//                'class' => 'AppBundle\Entity\User',
+//                'placeholder' => 'Select a user',
+//            ])
+
 //            ->add(
 //                'users',
 //                EntityType::class,

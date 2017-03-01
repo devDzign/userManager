@@ -7,45 +7,36 @@
 {% block body %}
     <h1>{{ '%entity% edit'|trans({'%entity%': 'Group'}, 'admin') }}</h1>
 
-    {{ form_start(edit_form, {'attr': {'class': 'form-horizontal'}}) }}
-    <div class="form-group">
-        {# Génération du label. #}
-        {{ form_label(edit_form.name, "Nom de groupe", {'label_attr': {'class': 'col-sm-2 control-label'}}) }}
+    {{ form_start(edit_form) }}
 
-        {{ form_errors(edit_form.name) }}
-        <div class="col-sm-10">
-            {{ form_widget(edit_form.name, {'attr': {'class': 'form-control'}}) }}
-        </div>
+    {{ form_widget(edit_form) }}
+    <div class="well">
+        {{ form_row(edit_form.roles) }}
+        <a href="#" id="add_category" class="btn btn-default">Ajouter un role</a>
     </div>
 
-    <div class="form-group">
-        <div class="col-sm-10">
-            {{ form_widget(edit_form.roles) }}
-            <a href="#" id="add_category" class="btn btn-default">Ajouter un role</a>
-        </div>
-
-
-    </div>
-        <p>
-            <button class="btn btn-primary" type="submit"><i class="fa fa-edit"></i> {{ 'Edit'|trans({}, 'admin') }}</button>
-        </p>
+    <p>
+        <button class="btn btn-primary" type="submit"><i class="fa fa-edit"></i> {{ 'Edit'|trans({}, 'admin') }}
+        </button>
+    </p>
     {{ form_end(edit_form) }}
 
     {{ form_start(delete_form) }}
-        {{ form_widget(delete_form) }}
+    {{ form_widget(delete_form) }}
 
 
-        <div class="btn-group record_actions">
+    <div class="btn-group record_actions">
 
-            <a class="btn btn-info" href="{{ path('admin_groups') }}">
-                <i class="fa fa-list"></i> {{ 'Back to the list'|trans({}, 'admin') }}
-            </a>
+        <a class="btn btn-info" href="{{ path('admin_groups') }}">
+            <i class="fa fa-list"></i> {{ 'Back to the list'|trans({}, 'admin') }}
+        </a>
 
-            <button class="btn btn-danger" type="submit"><i class="fa fa-trash-o"></i> {{ 'Delete'|trans({}, 'admin') }}</button>
+        <button class="btn btn-danger" type="submit"><i class="fa fa-trash-o"></i> {{ 'Delete'|trans({}, 'admin') }}
+        </button>
 
-        </div>
+    </div>
 
-        <input name="modal" type="hidden" value="0">
+    <input name="modal" type="hidden" value="0">
     {{ form_end(delete_form) }}
 
     <div id="delete_confirm" class="modal fade">
@@ -56,7 +47,8 @@
                     <h3>{{ 'Confirm delete'|trans({}, 'admin') }}</h3>
                 </div>
                 <div class="modal-body">
-                    <p>{{ 'You are about to delete an item'|trans({}, 'admin') }}, {{ 'this procedure is irreversible'|trans({}, 'admin') }}.</p>
+                    <p>{{ 'You are about to delete an item'|trans({}, 'admin') }}
+                        , {{ 'this procedure is irreversible'|trans({}, 'admin') }}.</p>
                     <p>{{ 'Do you want to proceed?'|trans({}, 'admin') }}</p>
                 </div>
                 <div class="modal-footer">
@@ -72,7 +64,7 @@
     {{ parent() }}
     {# Voici le script en question : #}
     <script type="text/javascript">
-        $(document).ready(function() {
+        $(document).ready(function () {
             // On récupère la balise <div> en question qui contient l'attribut « data-prototype » qui nous intéresse.
             var $container = $('div#app_admin_groups_roles');
 
@@ -80,7 +72,7 @@
             var index = $container.find(':input').length;
 
             // On ajoute un nouveau champ à chaque clic sur le lien d'ajout.
-            $('#add_category').click(function(e) {
+            $('#add_category').click(function (e) {
                 addCategory($container);
 
                 e.preventDefault(); // évite qu'un # apparaisse dans l'URL
@@ -92,7 +84,7 @@
                 addCategory($container);
             } else {
                 // S'il existe déjà des catégories, on ajoute un lien de suppression pour chacune d'entre elles
-                $container.children('div').each(function() {
+                $container.children('div').each(function () {
                     addDeleteLink($(this));
                 });
             }
@@ -103,8 +95,8 @@
                 // - le texte "__name__label__" qu'il contient par le label du champ
                 // - le texte "__name__" qu'il contient par le numéro du champ
                 var template = $container.attr('data-prototype')
-                        .replace(/__name__label__/g, 'Role n°' + (index+1))
-                        .replace(/__name__/g,        index)
+                        .replace(/__name__label__/g, 'Role n°' + (index + 1))
+                        .replace(/__name__/g, index)
                     ;
 
                 // On crée un objet jquery qui contient ce template
@@ -129,7 +121,7 @@
                 $prototype.append($deleteLink);
 
                 // Ajout du listener sur le clic du lien pour effectivement supprimer la catégorie
-                $deleteLink.click(function(e) {
+                $deleteLink.click(function (e) {
                     $prototype.remove();
 
                     e.preventDefault(); // évite qu'un # apparaisse dans l'URL

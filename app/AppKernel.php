@@ -19,6 +19,8 @@ class AppKernel extends Kernel
             new Knp\Bundle\PaginatorBundle\KnpPaginatorBundle(),
             new Lexik\Bundle\FormFilterBundle\LexikFormFilterBundle(),
             new Knp\Bundle\MenuBundle\KnpMenuBundle(),
+//            new Genemu\Bundle\FormBundle\GenemuFormBundle(),
+            new Tetranz\Select2EntityBundle\TetranzSelect2EntityBundle(),
             new AppBundle\AppBundle(),
         ];
 

@@ -8,3 +8,9 @@ services:
         arguments: [ '@request_stack' ]
         tags:
             - { name: knp_menu.voter }
+
+#    app.form.select2:
+#        class: Genemu\Bundle\FormBundle\Form\JQuery\Type\Select2Type
+#        arguments: [ 'entity' ]
+#        tags:
+#            - { name: form.type }
