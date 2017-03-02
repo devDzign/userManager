@@ -21,7 +21,6 @@
         <link href="//netdna.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.css" rel="stylesheet">
         <link href="{{ asset('plugin/select2-4.0.3/dist/css/select2.min.css') }}" rel="stylesheet" />
         <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
-        <link rel="stylesheet" type="text/css" href="../src/bootstrap-duallistbox.css">
         <link rel="stylesheet" type="text/css" href="{{ asset('plugin/bootstrap-duallistbox-3.0.6/dist/bootstrap-duallistbox.min.css') }}">
 
         <link rel="stylesheet" href="{{ asset('css/my-style.css') }}"/>
@@ -50,6 +49,14 @@
 {% endblock %}
 
 <div class="container">
+    <div class="row">
+        <div class="btn-group btn-breadcrumb">
+            <a href="#" class="btn btn-primary"><i class="glyphicon glyphicon-home"></i></a>
+            <a href="#" class="btn btn-primary">Snippets</a>
+            <a href="#" class="btn btn-primary">Breadcrumbs</a>
+            <a href="#" class="btn btn-primary">Primary</a>
+        </div>
+    </div>
     {% block body %}{% endblock %}
 </div>
 

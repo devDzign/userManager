@@ -1,3 +1,8 @@
+client:
+    resource: "@ClientBundle/Controller/"
+    type:     annotation
+    prefix:   /
+
 group:
     resource: "@AppBundle/Controller/GroupController.php"
     type:     annotation

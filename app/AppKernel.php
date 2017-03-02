@@ -22,6 +22,7 @@ class AppKernel extends Kernel
 //            new Genemu\Bundle\FormBundle\GenemuFormBundle(),
             new Tetranz\Select2EntityBundle\TetranzSelect2EntityBundle(),
             new AppBundle\AppBundle(),
+            new ClientBundle\ClientBundle(),
         ];
 
         if (in_array($this->getEnvironment(), ['dev', 'test'], true)) {
