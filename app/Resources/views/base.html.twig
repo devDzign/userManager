@@ -41,39 +41,6 @@
 </head>
 
 <body>
-{% block header %}
-    <div id="header">
-
-        <div class="color-line">
-        </div>
-
-
-        <div id="logo" class="light-version">
-            <span>
-                Administration
-            </span>
-        </div>
-
-
-        <nav role="navigation">
-
-            <div class="header-link hide-menu"><i class="fa fa-bars"></i></div>
-
-
-            <div class="small-logo">
-                <span class="text-primary">Administration</span>
-            </div>
-
-
-            <div id="navbar" class="navbar-collapse collapse">
-                {{ knp_menu_render('AppBundle:MenuBuilder:buildMainMenu', {'currentClass': 'active', 'template': ':Menu:knp_menu.html.twig'}) }}
-                {{ knp_menu_render('AppBundle:MenuBuilder:buildUserMenu', {'currentClass': 'active', 'template': ':Menu:knp_menu.html.twig'}) }}
-            </div>
-
-        </nav>
-
-    </div>
-{% endblock %}
 {% block topnav %}
     <nav class="navbar navbar-fixed-top">
         <!-- put your nav bar here -->

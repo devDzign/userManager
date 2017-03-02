@@ -73,9 +73,11 @@ class MenuBuilder implements ContainerAwareInterface
                 ->setAttribute('dropdown', true)
                 ->setAttribute('icon', 'fa fa-user');
 
-            $menu['profile']->addChild('Se déconnecter', array('route' => 'fos_user_security_logout'))
+            $menu['profile']
+                ->addChild('Se déconnecter', array('route' => 'fos_user_security_logout'))
                 ->setAttribute('icon', 'fa fa-unlink');
-            $menu['profile']->addChild("Se connecter sous un autre profil", array('route' => 'fos_user_security_login'))
+            $menu['profile']
+                ->addChild("Se connecter sous un autre profil", array('route' => 'fos_user_security_login'))
                 ->setAttribute('icon', 'fa fa-link');
         }
 
