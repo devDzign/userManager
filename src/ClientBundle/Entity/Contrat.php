@@ -5,7 +5,7 @@ namespace ClientBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * ClientVN
+ * Contrat
  *
  * @ORM\Table(name="contrat")
  * @ORM\Entity(repositoryClass="ClientBundle\Repository\ContratRepository")
@@ -22,9 +22,8 @@ class Contrat
     private $id;
 
 
-
     /**
-     * @ORM\ManyToOne(targetEntity="ClientBundle\Entity\Societe", inversedBy="clientVNs")
+     * @ORM\ManyToOne(targetEntity="ClientBundle\Entity\Societe", inversedBy="Contrats")
      */
     private $societe;
 
@@ -47,6 +46,12 @@ class Contrat
      * @ORM\Column(name="configurationContact", type="string", length=255)
      */
     private $configurationContact;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="ClientBundle\Entity\Options", cascade={"persist"})
+     * @ORM\JoinTable(name="option_Contrat")
+     */
+    private $services;
 
 
     /**
@@ -72,7 +77,7 @@ class Contrat
      *
      * @param string $configuration
      *
-     * @return ClientVN
+     * @return Contrat
      */
     public function setConfiguration($configuration)
     {
@@ -96,7 +101,7 @@ class Contrat
      *
      * @param string $societe
      *
-     * @return ClientVN
+     * @return Contrat
      */
     public function setSociete($societe)
     {
@@ -120,7 +125,7 @@ class Contrat
      *
      * @param string $facturation
      *
-     * @return ClientVN
+     * @return Contrat
      */
     public function setFacturation($facturation)
     {
@@ -144,7 +149,7 @@ class Contrat
      *
      * @param string $responsableClient
      *
-     * @return ClientVN
+     * @return Contrat
      */
     public function setResponsableClient($responsableClient)
     {
@@ -243,5 +248,39 @@ class Contrat
     public function getConfigurationContact()
     {
         return $this->configurationContact;
+    }
+
+    /**
+     * Add service
+     *
+     * @param \ClientBundle\Entity\Options $service
+     *
+     * @return Contrat
+     */
+    public function addService(\ClientBundle\Entity\Options $service)
+    {
+        $this->services[] = $service;
+
+        return $this;
+    }
+
+    /**
+     * Remove service
+     *
+     * @param \ClientBundle\Entity\Options $service
+     */
+    public function removeService(\ClientBundle\Entity\Options $service)
+    {
+        $this->services->removeElement($service);
+    }
+
+    /**
+     * Get services
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getServices()
+    {
+        return $this->services;
     }
 }

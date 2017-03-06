@@ -99,12 +99,6 @@ class Configuration
      */
     private $stock;
 
-    /**
-     * @ORM\OneToOne(targetEntity="ClientBundle\Entity\Service", cascade={"persist","remove"})
-     * @ORM\JoinColumn(nullable=false)
-     */
-    private $service;
-
 
     /**
      * Get id
@@ -378,29 +372,5 @@ class Configuration
     public function getStock()
     {
         return $this->stock;
-    }
-
-    /**
-     * Set service
-     *
-     * @param \ClientBundle\Entity\Service $service
-     *
-     * @return Configuration
-     */
-    public function setService(\ClientBundle\Entity\Service $service)
-    {
-        $this->service = $service;
-
-        return $this;
-    }
-
-    /**
-     * Get service
-     *
-     * @return \ClientBundle\Entity\Service
-     */
-    public function getService()
-    {
-        return $this->service;
     }
 }

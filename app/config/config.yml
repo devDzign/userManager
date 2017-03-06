@@ -90,6 +90,8 @@ bazinga_faker:
     entities:
         AppBundle\Entity\User:
             number: 20
+        AppBundle\Entity\Group:
+            number: 10
 
 lexik_form_filter:
     listeners:

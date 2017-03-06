@@ -55,6 +55,7 @@ class Service
      */
     private $configuration;
 
+
     /**
      * Get id
      *
