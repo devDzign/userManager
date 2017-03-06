@@ -29,17 +29,10 @@ class Facturation
     private $nom;
 
     /**
-     * @ORM\ManyToOne(targetEntity="ClientBundle\Entity\Societe", inversedBy="facturations", cascade={"persist","remove"})
+     * @ORM\ManyToOne(targetEntity="ClientBundle\Entity\Societe", cascade={"persist","remove"})
      * @ORM\JoinColumn(nullable=false)
      */
     private $societe;
-
-    /**
-     * @ORM\ManyToOne(targetEntity="ClientBundle\Entity\Contrat", inversedBy="facturations", cascade={"persist","remove"})
-     * @ORM\JoinColumn(nullable=false)
-     */
-    private $contrat;
-
 
 
     /**

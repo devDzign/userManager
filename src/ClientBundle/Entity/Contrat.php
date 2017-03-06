@@ -21,24 +21,12 @@ class Contrat
      */
     private $id;
 
-
-    /**
-     * @ORM\ManyToOne(targetEntity="ClientBundle\Entity\Societe", inversedBy="Contrats")
-     */
-    private $societe;
-
-    /**
-     * @ORM\OneToMany(targetEntity="ClientBundle\Entity\Facturation", mappedBy="contrat")
-     * @ORM\JoinColumn(nullable=true)
-     */
-    private $facturations;
-
     /**
      * @var string
      *
      * @ORM\Column(name="responsableClient", type="string", length=255)
      */
-    private $respinsableClient;
+    private $responsableClient;
 
     /**
      * @var string
@@ -48,17 +36,28 @@ class Contrat
     private $configurationContact;
 
     /**
+     * @ORM\ManyToOne(targetEntity="ClientBundle\Entity\Societe", inversedBy="Contrats")
+     */
+    private $societe;
+
+    /**
      * @ORM\ManyToMany(targetEntity="ClientBundle\Entity\Options", cascade={"persist"})
      * @ORM\JoinTable(name="option_Contrat")
      */
     private $services;
 
+    /**
+     * @ORM\ManyToMany(targetEntity="ClientBundle\Entity\Facturation", cascade={"persist"})
+     * @ORM\JoinTable(name="facturation_Contrat")
+     */
+    private $facturations;
 
     /**
      * Constructor
      */
     public function __construct()
     {
+        $this->services = new \Doctrine\Common\Collections\ArrayCollection();
         $this->facturations = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
@@ -70,30 +69,6 @@ class Contrat
     public function getId()
     {
         return $this->id;
-    }
-
-    /**
-     * Set configuration
-     *
-     * @param string $configuration
-     *
-     * @return Contrat
-     */
-    public function setConfiguration($configuration)
-    {
-        $this->configuration = $configuration;
-
-        return $this;
-    }
-
-    /**
-     * Get configuration
-     *
-     * @return string
-     */
-    public function getConfiguration()
-    {
-        return $this->configuration;
     }
 
     /**
@@ -121,30 +96,6 @@ class Contrat
     }
 
     /**
-     * Set facturation
-     *
-     * @param string $facturation
-     *
-     * @return Contrat
-     */
-    public function setFacturation($facturation)
-    {
-        $this->facturation = $facturation;
-
-        return $this;
-    }
-
-    /**
-     * Get facturation
-     *
-     * @return string
-     */
-    public function getFacturation()
-    {
-        return $this->facturation;
-    }
-
-    /**
      * Set responsableClient
      *
      * @param string $responsableClient
@@ -166,64 +117,6 @@ class Contrat
     public function getResponsableClient()
     {
         return $this->responsableClient;
-    }
-
-    /**
-     * Add facturation
-     *
-     * @param \ClientBundle\Entity\Facturation $facturation
-     *
-     * @return ContratVN
-     */
-    public function addFacturation(\ClientBundle\Entity\Facturation $facturation)
-    {
-        $this->facturations[] = $facturation;
-
-        return $this;
-    }
-
-    /**
-     * Remove facturation
-     *
-     * @param \ClientBundle\Entity\Facturation $facturation
-     */
-    public function removeFacturation(\ClientBundle\Entity\Facturation $facturation)
-    {
-        $this->facturations->removeElement($facturation);
-    }
-
-    /**
-     * Get facturations
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getFacturations()
-    {
-        return $this->facturations;
-    }
-
-    /**
-     * Set respinsableClient
-     *
-     * @param string $respinsableClient
-     *
-     * @return Contrat
-     */
-    public function setRespinsableClient($respinsableClient)
-    {
-        $this->respinsableClient = $respinsableClient;
-
-        return $this;
-    }
-
-    /**
-     * Get respinsableClient
-     *
-     * @return string
-     */
-    public function getRespinsableClient()
-    {
-        return $this->respinsableClient;
     }
 
     /**
@@ -282,5 +175,39 @@ class Contrat
     public function getServices()
     {
         return $this->services;
+    }
+
+    /**
+     * Add facturation
+     *
+     * @param \ClientBundle\Entity\Facturation $facturation
+     *
+     * @return Contrat
+     */
+    public function addFacturation(\ClientBundle\Entity\Facturation $facturation)
+    {
+        $this->facturations[] = $facturation;
+
+        return $this;
+    }
+
+    /**
+     * Remove facturation
+     *
+     * @param \ClientBundle\Entity\Facturation $facturation
+     */
+    public function removeFacturation(\ClientBundle\Entity\Facturation $facturation)
+    {
+        $this->facturations->removeElement($facturation);
+    }
+
+    /**
+     * Get facturations
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getFacturations()
+    {
+        return $this->facturations;
     }
 }

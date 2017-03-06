@@ -171,20 +171,12 @@ class Societe
 
 
     /**
-     * @ORM\OneToMany(targetEntity="ClientBundle\Entity\Facturation", mappedBy="societe")
-     * @ORM\JoinColumn(nullable=true)
-     */
-    private $facturations;
-
-
-    /**
      * Constructor
      */
     public function __construct()
     {
         $this->contacts = new \Doctrine\Common\Collections\ArrayCollection();
         $this->contrats = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->facturations = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
@@ -712,13 +704,13 @@ class Societe
     }
 
     /**
-     * Add contratVN
+     * Add contrat
      *
      * @param \ClientBundle\Entity\Contrat $contrat
      *
      * @return Societe
      */
-    public function addContrat(\ClientBundle\Entity\ContratVN $contrat)
+    public function addContrat(\ClientBundle\Entity\Contrat $contrat)
     {
         $this->contrats[] = $contrat;
 
@@ -726,17 +718,17 @@ class Societe
     }
 
     /**
-     * Remove contratVN
+     * Remove contrat
      *
      * @param \ClientBundle\Entity\Contrat $contrat
      */
-    public function removeContratVN(\ClientBundle\Entity\Contrat $contrat)
+    public function removeContrat(\ClientBundle\Entity\Contrat $contrat)
     {
-        $this->contratVNs->removeElement($contrat);
+        $this->contrats->removeElement($contrat);
     }
 
     /**
-     * Get contratVNs
+     * Get contrats
      *
      * @return \Doctrine\Common\Collections\Collection
      */
@@ -744,39 +736,4 @@ class Societe
     {
         return $this->contrats;
     }
-
-    /**
-     * Add facturation
-     *
-     * @param \ClientBundle\Entity\Facturation $facturation
-     *
-     * @return Societe
-     */
-    public function addFacturation(\ClientBundle\Entity\Facturation $facturation)
-    {
-        $this->facturations[] = $facturation;
-
-        return $this;
-    }
-
-    /**
-     * Remove facturation
-     *
-     * @param \ClientBundle\Entity\Facturation $facturation
-     */
-    public function removeFacturation(\ClientBundle\Entity\Facturation $facturation)
-    {
-        $this->facturations->removeElement($facturation);
-    }
-
-    /**
-     * Get facturations
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getFacturations()
-    {
-        return $this->facturations;
-    }
-
 }
